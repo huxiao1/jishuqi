@@ -1,0 +1,515 @@
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN keshe.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE keshe.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  00B5                 1     RS EQU P3.5              
+  00B6                 2     RW EQU P3.6              
+  00B7                 3     E  EQU P3.7              
+  00A0                 4     LCD EQU P2               
+  00A7                 5     BF EQU P2.7             
+                       6     
+                       7     
+0000                   8     ORG  0000H
+0000 020255            9     LJMP  MAIN
+000B                  10     ORG 000BH
+000B 020040           11     LJMP JISHI
+0040                  12     ORG 0040H
+                      13     
+                      14     
+0040                  15     JISHI:  
+                      16                     
+0040 90024A           17                     MOV DPTR,#TAB2
+0043 309002           18             JNB P1.0,START    
+0046 2132             19             AJMP RETURN              
+                      20     
+                      21     
+0048                  22         START: 
+0048 209114           23             JB P1.1,L2         
+                      24             
+004B 7536FF           25                        MOV  36H,#0FFH
+004E 7537FF           26             K1:             MOV   37H,#0FFH    
+0051 D537FD           27         DL0:DJNZ  37H,DL0   
+0054 D536F7           28             DL1:DJNZ  36H,K1
+0057 2091EE           29             JB P1.1,START
+005A D291             30                     SETB P1.1               
+005C 02010A           31                   LJMP DK1
+                      32     
+                      33     
+                      34     
+005F 209214           35         L2:   JB P1.2,L1       
+                      36             
+0062 7536FF           37                   MOV  36H,#0FFH
+0065 7537FF           38             K2:       MOV   37H,#0FFH        
+0068 D537FD           39             DL2:  DJNZ  37H,DL2
+006B D536F7           40         DL3:  DJNZ  36H,K2
+006E 2092D7           41             JB P1.2,START
+0071 D292             42                     SETB P1.2
+0073 02013A           43                       LJMP DK2
+                      44     
+0076 209314           45             L1:       JB P1.3,L                
+0079 7536FF           46                   MOV  36H,#0FFH
+                      47              
+007C 7537FF           48             K3:       MOV   37H,#0FFH         
+007F D537FD           49        DL4:   DJNZ  37H,DL4
+0082 D536F7           50        DL5:   DJNZ  36H,K3
+0085 2093C0           51        JB P1.3,START
+0088 D293             52                     SETB P1.3
+008A 0201A9           53                       LJMP  DK3
+                      54     
+                      55     
+008D 209414           56             L:        JB P1.4,START1         
+0090 7536FF           57                   MOV  36H,#0FFH
+                      58             
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     2
+
+0093 7537FF           59             K4:       MOV   37H,#0FFH         
+0096 D537FD           60        DL6:  DJNZ  37H,DL6
+0099 D536F7           61        DL7:   DJNZ  36H,K4
+009C 2094A9           62        JB P1.4,START
+009F D294             63                     SETB P1.4
+00A1 0201D6           64                       LJMP DK4 
+                      65     
+                      66     
+00A4 1580             67     START1:   DEC P0
+00A6 E580             68                   MOV A,P0
+00A8 B40003           69                   CJNE A,#00H,START2         
+00AB 7580FF           70                       MOV P0,#0FFH
+00AE                  71             START2:    
+00AE 790F             72               MOV R1,#15   
+                      73               
+                      74               
+00B0 EA               75               MOV A,R2
+00B1 93               76               MOVC A,@A+DPTR         
+00B2 11F1             77               CALL LCDP2
+00B4 0A               78               INC R2
+00B5 BA0A7A           79               CJNE R2,#10,RETURN   
+00B8 7A00             80               MOV R2,#0                       
+00BA 19               81               DEC R1
+00BB 19               82               DEC R1                 
+                      83     
+00BC 0B               84               INC R3                 
+00BD EB               85               MOV A,R3
+00BE 93               86               MOVC A,@A+DPTR
+00BF 11F1             87               CALL LCDP2
+00C1 BB0A6E           88               CJNE R3,#10,RETURN
+00C4 7B00             89               MOV R3,#0
+00C6 19               90               DEC R1            
+                      91     
+00C7 0C               92                INC R4                   
+00C8 EC               93                MOV A,R4
+00C9 93               94                MOVC A,@A+DPTR
+00CA 11F1             95                CALL LCDP2
+00CC BC0663           96                CJNE R4,#6,RETURN
+00CF 7C00             97                MOV R4,#0
+00D1 EC               98                MOV A,R4
+00D2 93               99                MOVC A,@A+DPTR
+00D3 11F1            100                CALL LCDP2
+00D5 19              101                DEC R1
+00D6 19              102                DEC R1                
+                     103     
+                     104                
+00D7 0D              105                INC R5
+00D8 ED              106                MOV A,R5
+00D9 93              107                MOVC A,@A+DPTR
+00DA 11F1            108                CALL LCDP2              
+00DC BD0A53          109                CJNE R5,#10,RETURN
+00DF 7D00            110                MOV R5,#0
+00E1 ED              111                MOV A,R5
+00E2 93              112                MOVC A,@A+DPTR
+00E3 11F1            113                CALL LCDP2
+00E5 19              114                DEC R1                 
+                     115     
+                     116                
+00E6 0E              117                INC R6                
+00E7 EE              118                MOV A,R6
+00E8 93              119                MOVC A,@A+DPTR
+00E9 11F1            120                CALL LCDP2
+00EB BE0644          121                CJNE R6,#6,RETURN
+                     122                   
+00EE 2101            123                       AJMP RING              
+00F0 22              124                   RET
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     3
+
+                     125     
+                     126     
+00F1 C0E0            127     LCDP2:PUSH  ACC 
+00F3 E9              128           MOV  A,R1
+00F4 24C0            129               ADD  A,#0C0H
+00F6 31FF            130               CALL WAIT
+00F8 510F            131               CALL  W_CMD
+00FA D0E0            132               POP ACC
+00FC 31FF            133               CALL WAIT
+00FE 511D            134               CALL  W_DATA
+0100 22              135               RET
+                     136     
+                     137     
+                     138             
+0101 C2B0            139             RING: CLR P3.0
+0103 7538FF          140                   MOV 38H,#0FFH
+0106 D538FD          141             RING1: DJNZ 38H, RING1     
+0109 22              142                    RET
+                     143     
+                     144     
+                     145     
+                     146          
+010A                 147               DK1:
+010A 7902            148                   MOV R1,#2      
+010C EF              149                   MOV A,R7
+010D 93              150                       MOVC A,@A+DPTR
+010E 11F1            151                       CALL LCDP2
+0110 0F              152                       INC R7                            
+0111 BF0B1E          153                       CJNE R7,#11,RETURN  
+0114 7F00            154                       MOV R7,#0
+                     155     
+0116 7901            156                        MOV R1,#1     
+0118 E530            157                        MOV A,30H
+011A 93              158                        MOVC A,@A+DPTR
+011B 11F1            159                        CALL LCDP2
+011D 0530            160                        INC 30H
+011F E530            161                        MOV A,30H
+0121 B40B0E          162                        CJNE A,#11,RETURN
+0124 753000          163                             MOV 30H,#0
+                     164                                              
+0127 7900            165                             MOV R1,#0         
+0129 E531            166                             MOV A,31H
+012B 93              167                             MOVC A,@A+DPTR
+012C 11F1            168                             CALL LCDP2
+012E 0531            169                             INC 31H
+0130 2132            170                       AJMP RETURN
+                     171     
+0132 758C3C          172                       RETURN:  MOV TH0,#3CH     
+0135 758AB0          173                                MOV TL0,#0B0H
+0138 32              174                                        RETI  
+                     175     
+0139 1F              176                     DEC R7
+                     177     
+                     178                     
+                     179                             
+                     180                       
+013A 7902            181                     DK2: MOV R1,#2              
+013C BF0002          182                              CJNE R7,#00H,DO
+013F 2193            183                                     AJMP GAI
+0141                 184                     DO:  
+0141 0F              185                              INC R7
+0142 BF0A61          186                              CJNE R7,#0AH,GAI2
+                     187                                     
+0145                 188                             DO2:    
+0145 1F              189                              DEC R7
+0146 BF0013          190                              CJNE R7,#00H,DO3
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     4
+
+0149 7F0A            191                                      MOV R7,#0AH
+014B 7901            192                                      MOV R1,#1                        
+014D 1530            193                                      DEC 30H
+014F 1530            194                                      DEC 30H
+0151 E530            195                                      MOV A,30H
+0153 93              196                                      MOVC A,@A+DPTR
+0154 11F1            197                                      CALL LCDP2
+0156 7902            198                                      MOV R1,#2
+0158 0530            199                                      INC 30H
+015A 215C            200                                      AJMP DO3
+015C                 201                      DO3:
+015C BF0D0A          202                              CJNE R7,#0DH,DO5
+015F 7F07            203                              MOV R7,#07H
+0161 EF              204                              MOV A,R7
+0162 93              205                              MOVC A,@A+DPTR
+0163 11F1            206                              CALL LCDP2
+0165 0F              207                             INC R7
+0166 BF00C9          208                             CJNE R7,#0,RETURN
+0169                 209                     DO5: 
+0169 BF090B          210                              CJNE R7,#09H,DO4
+016C 7F08            211                              MOV R7,#08H
+016E EF              212                              MOV A,R7
+016F 93              213                              MOVC A,@A+DPTR
+0170 11F1            214                              CALL LCDP2
+0172 7F0E            215                              MOV R7,#0EH
+0174 BF00BB          216                             CJNE R7,#0,RETURN       
+                     217             
+0177 1F              218                     DO4: DEC R7                                        
+0178 EF              219                              MOV A,R7
+0179 93              220                              MOVC A,@A+DPTR
+017A 11F1            221                              CALL LCDP2
+017C 0F              222                             INC R7
+017D BF00B2          223                             CJNE R7,#0,RETURN
+                     224                     
+0180 7F0A            225                             MOV R7,#10
+0182 EF              226                             MOV A,R7
+0183 93              227                MOVC A,@A+DPTR
+0184 11F1            228                CALL LCDP2
+                     229     
+                     230     
+                     231     
+0186 1530            232                             DEC 30H
+0188 1530            233                             DEC 30H
+018A 7901            234                             MOV R1,#1                
+018C E530            235                             MOV A,30H
+018E 93              236                             MOVC A,@A+DPTR
+018F 11F1            237                             CALL LCDP2
+0191 2132            238                             AJMP RETURN
+                     239     
+                     240     
+                     241     
+0193 7F0B            242     GAI:      MOV R7,#0BH
+0195 7901            243                       MOV R1,#1              
+0197 1530            244                       DEC 30H
+0199 1530            245                       DEC 30H
+019B E530            246                       MOV A,30H
+019D 93              247                       MOVC A,@A+DPTR
+019E 11F1            248                       CALL LCDP2
+01A0 7902            249                       MOV R1,#2
+01A2 0530            250                       INC 30H
+01A4 2141            251                       AJMP DO
+                     252     
+01A6                 253     GAI2:   
+01A6 1F              254                     DEC R7
+                     255                     
+01A7 2145            256                     AJMP DO2        
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     5
+
+                     257                             
+                     258     
+                     259     
+                     260     
+01A9 7906            261     DK3:      MOV R1,#6
+01AB E532            262                   MOV A,32H
+01AD 93              263                       MOVC A,@A+DPTR
+01AE 11F1            264                       CALL LCDP2
+01B0 0532            265                       INC 32H
+01B2 E532            266                       MOV A,32H
+01B4 B40B46          267                       CJNE A,#11,S
+01B7 753200          268                        MOV 32H,#0
+                     269     
+01BA 7905            270                        MOV R1,#5
+01BC E533            271                        MOV A,33H
+01BE 93              272                        MOVC A,@A+DPTR
+01BF 11F1            273                        CALL LCDP2
+01C1 0533            274                        INC 33H
+01C3 E533            275                        MOV A,33H
+01C5 B40B35          276                        CJNE A,#11,S
+01C8 753300          277                             MOV 33H,#0
+                     278                     
+                     279     
+01CB 7904            280                             MOV R1,#4
+01CD E534            281                             MOV A,34H
+01CF 93              282                             MOVC A,@A+DPTR
+01D0 11F1            283                             CALL LCDP2
+01D2 0534            284                             INC 34H
+01D4 2132            285                             AJMP RETURN
+                     286     
+01D6 7906            287     DK4:        MOV R1,#6
+01D8 1532            288                          DEC 32H
+01DA 1532            289                              DEC 32H
+01DC E532            290                              MOV A,32H
+01DE 93              291                              MOVC A,@A+DPTR
+01DF 11F1            292                              CALL LCDP2
+01E1 0532            293                             INC 32H
+01E3 E532            294                             MOV A,32H
+01E5 B40015          295                             CJNE A,#0,S
+01E8 75320A          296                             MOV 32H,#10
+01EB E532            297                               MOV A,32H
+01ED 93              298                MOVC A,@A+DPTR
+01EE 11F1            299                CALL LCDP2
+01F0 1533            300                             DEC 33H
+01F2 1533            301                             DEC 33H
+                     302     
+01F4 7905            303                             MOV R1,#5
+01F6 E533            304                             MOV A,33H
+01F8 93              305                             MOVC A,@A+DPTR
+01F9 11F1            306                             CALL LCDP2
+01FB 2132            307                             AJMP RETURN
+01FD 2132            308     S:      AJMP RETURN
+                     309     
+                     310     
+                     311     
+                     312     
+                     313     
+                     314     
+                     315     
+                     316       
+01FF 75A0FF          317       WAIT:MOV LCD,#0FFH
+0202 C2B5            318          CLR RS               
+0204 D2B6            319              SETB RW         
+0206 C2B7            320              CLR E
+0208 00              321              NOP
+0209 D2B7            322              SETB E           
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     6
+
+020B 20A7F1          323              JB BF,WAIT       
+020E 22              324              RET
+                     325     
+                     326     
+020F 31FF            327     W_CMD:ACALL WAIT
+0211 F5A0            328           MOV LCD,A    
+0213 C2B5            329               CLR RS                
+0215 C2B6            330               CLR RW            
+0217 D2B7            331               SETB E
+0219 00              332               NOP
+021A C2B7            333               CLR E            
+021C 22              334               RET
+                     335     
+                     336     
+021D 31FF            337     W_DATA:ACALL WAIT
+021F F5A0            338            MOV LCD,A
+0221 D2B5            339                SETB RS                 
+0223 C2B6            340                CLR RW           
+0225 D2B7            341                SETB E
+0227 00              342                NOP 
+0228 C2B7            343                CLR E
+022A 22              344                RET
+                     345     
+                     346     
+022B 4841494E        347     TAB:DB 'HAINAN VS HEBEI'
+022F 414E2056                
+0233 53204845                
+0237 424549                  
+023A 3030303A        348             DB '000:000  00:00:0'
+023E 30303020                
+0242 2030303A                
+0246 30303A30                
+024A 30313233        349     TAB2: DB 30H,31H,32H,33H,34H,35H,36H,37H,38H,39H,30H    
+024E 34353637                
+0252 383930                  
+                     350     
+                     351     
+0255                 352     MAIN:
+                     353               
+0255 7800            354               MOV R0,#0
+0257 7A00            355               MOV R2,#0
+0259 7B00            356               MOV R3,#0
+025B 7C00            357               MOV R4,#0
+025D 7D00            358               MOV R5,#0
+025F 7E00            359               MOV R6,#0
+0261 7F01            360               MOV R7,#1
+0263 753001          361               MOV 30H,#1
+0266 753101          362               MOV 31H,#1
+0269 753201          363               MOV 32H,#1
+026C 753301          364               MOV 33H,#1
+026F 753401          365               MOV 34H,#1
+0272 7580FF          366               MOV P0,#0FFH
+                     367     
+                     368              
+0275 7401            369          MOV A,#00000001B      
+0277 510F            370          ACALL W_CMD
+0279 7438            371              MOV A,#00111000B           
+027B 510F            372              ACALL W_CMD
+027D 740C            373              MOV A,#00001100B           
+027F 510F            374              ACALL W_CMD
+0281 7414            375              MOV A,#00010100B           
+0283 510F            376              ACALL W_CMD
+0285 7480            377              MOV A,#10000000B           
+0287 510F            378              ACALL W_CMD
+                     379     
+                     380     
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     7
+
+0289 90022B          381              MOV DPTR,#TAB
+028C A800            382              MOV R0,0
+                     383     
+                     384     
+028E E8              385     LOOP1:MOV A,R0
+028F 93              386           MOVC A,@A+DPTR
+0290 511D            387               ACALL W_DATA
+0292 08              388               INC R0
+0293 B80FF8          389               CJNE R0,#15,LOOP1      
+0296 74C0            390                MOV A,#0C0H      
+0298 510F            391               ACALL W_CMD
+                     392     
+                     393     
+                     394     
+029A E8              395      LOOP2:MOV A,R0
+029B 93              396           MOVC A,@A+DPTR
+029C 511D            397               ACALL W_DATA
+029E 08              398               INC R0
+029F B81FF8          399               CJNE R0,#31,LOOP2
+                     400     
+                     401     
+02A2 758901          402              MOV TMOD,#0000001B
+02A5 758C3C          403          MOV TH0,#3CH
+02A8 758AB0          404          MOV TL0,#0B0H
+02AB D2AF            405          SETB EA      
+02AD D2A9            406              SETB ET0
+02AF D28C            407              SETB TR0
+                     408                      
+02B1 41B1            409     LOOP3:AJMP LOOP3    
+                     410     END
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     8
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+BF . . . . . . . .  B ADDR   00A0H.7 A   
+DK1. . . . . . . .  C ADDR   010AH   A   
+DK2. . . . . . . .  C ADDR   013AH   A   
+DK3. . . . . . . .  C ADDR   01A9H   A   
+DK4. . . . . . . .  C ADDR   01D6H   A   
+DL0. . . . . . . .  C ADDR   0051H   A   
+DL1. . . . . . . .  C ADDR   0054H   A   
+DL2. . . . . . . .  C ADDR   0068H   A   
+DL3. . . . . . . .  C ADDR   006BH   A   
+DL4. . . . . . . .  C ADDR   007FH   A   
+DL5. . . . . . . .  C ADDR   0082H   A   
+DL6. . . . . . . .  C ADDR   0096H   A   
+DL7. . . . . . . .  C ADDR   0099H   A   
+DO . . . . . . . .  C ADDR   0141H   A   
+DO2. . . . . . . .  C ADDR   0145H   A   
+DO3. . . . . . . .  C ADDR   015CH   A   
+DO4. . . . . . . .  C ADDR   0177H   A   
+DO5. . . . . . . .  C ADDR   0169H   A   
+E. . . . . . . . .  B ADDR   00B0H.7 A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+GAI. . . . . . . .  C ADDR   0193H   A   
+GAI2 . . . . . . .  C ADDR   01A6H   A   
+JISHI. . . . . . .  C ADDR   0040H   A   
+K1 . . . . . . . .  C ADDR   004EH   A   
+K2 . . . . . . . .  C ADDR   0065H   A   
+K3 . . . . . . . .  C ADDR   007CH   A   
+K4 . . . . . . . .  C ADDR   0093H   A   
+L. . . . . . . . .  C ADDR   008DH   A   
+L1 . . . . . . . .  C ADDR   0076H   A   
+L2 . . . . . . . .  C ADDR   005FH   A   
+LCD. . . . . . . .  D ADDR   00A0H   A   
+LCDP2. . . . . . .  C ADDR   00F1H   A   
+LOOP1. . . . . . .  C ADDR   028EH   A   
+LOOP2. . . . . . .  C ADDR   029AH   A   
+LOOP3. . . . . . .  C ADDR   02B1H   A   
+MAIN . . . . . . .  C ADDR   0255H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+RETURN . . . . . .  C ADDR   0132H   A   
+RING . . . . . . .  C ADDR   0101H   A   
+RING1. . . . . . .  C ADDR   0106H   A   
+RS . . . . . . . .  B ADDR   00B0H.5 A   
+RW . . . . . . . .  B ADDR   00B0H.6 A   
+S. . . . . . . . .  C ADDR   01FDH   A   
+START. . . . . . .  C ADDR   0048H   A   
+START1 . . . . . .  C ADDR   00A4H   A   
+START2 . . . . . .  C ADDR   00AEH   A   
+TAB. . . . . . . .  C ADDR   022BH   A   
+TAB2 . . . . . . .  C ADDR   024AH   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+WAIT . . . . . . .  C ADDR   01FFH   A   
+W_CMD. . . . . . .  C ADDR   020FH   A   
+W_DATA . . . . . .  C ADDR   021DH   A   
+A51 MACRO ASSEMBLER  KESHE                                                                01/02/2018 01:41:48 PAGE     9
+
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
